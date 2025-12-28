@@ -1,0 +1,13 @@
+{
+  "name": "internal_name",
+  "friendly_name": "Just Name",
+  "description": "Description",
+  "author": "You",
+  "version": "1.0",
+  "link": "",
+  "id": "",
+  "requires": ["char_loader"],
+  "overwrites": false,
+  "priority": 0,
+  "client_side": false
+}
