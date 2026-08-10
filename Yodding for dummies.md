@@ -283,43 +283,44 @@ First thing you should do whenever creating a character, is make custom fighter 
 So you should end up with `extends Fighter`.
 *Important note:* when adding custom variables in fighter, you should include them in `extra state variables` property - this makes them copy over to prediction ghosts (just write them in there, each on new line).
 
-`obj_name` - unique object name, will be important when saving projectiles references; (same as just `name`?)
-`hp` - current health
-`MAX_BURST_METER`/`MAX_SUPER_METER`/`MAX_SUPERS` - should be pretty straight-forward, those are *constants*, so you can't change them
-`burst_meter`/`bursts_available` - current burst amount
-`super_meter`/`supers_available` - current super amount
+- `obj_name` - unique object name, will be important when saving projectiles references; (same as just `name`?)
+- `hp` - current health
+- `MAX_BURST_METER`/`MAX_SUPER_METER`/`MAX_SUPERS` - should be pretty straight-forward, those are *constants*, so you can't change them
+- `burst_meter`/`bursts_available` - current burst amount
+- `super_meter`/`supers_available` - current super amount
 quick note about how meters in yomi work:
-for example: when `super_meter` reaches `MAX_SUPER_METER`, it resets to `0` and adds `1` to `supers_available`; same works with burst, except you can't have more than 1 `bursts_available`
-`combo_count` - counts **moves**, so move that hits 3 times will just add 1
-`visible_combo_count` - counts **hits**, same number that you see in game UI
-`is_ghost` - true if in prediction
-`sprite` - reference to `Sprite` node
-`opponent` - reference to opponent's fighter
-`objs_map` - contains every object in game that is not disabled (floor/walls/particles are not objects, so actually just fighters and projectiles); 
-`current_di` - ...yeah, the blue wheel (`{"x": int, "y": int}`)
-`current_tick` - counts every frame since character is spawned; however, not recommended to use it; there is a better alternative:
-`game_tick` - unlike `current_tick`, doesn't keep counting during hitlag
-`hitlag_ticks` - ...the uhh freeze thing; can use this to freeze stuff manually
-`turn_frames` - counts every frame since locked in(?); useful if you need something like turn-based cooldown (instead of frame-based)
-`ceiling height` - ceiling position (except it's positive number, so don't forget to `*-1` when comparing to object position)
-`stage_width` - walls position (left one is at `-stage_width`, right one is at `stage_width`)
-`infinite_resources` - true if infinite resources are enabled
+for example: when `super_meter` reaches `MAX_SUPER_METER`, it resets to `0` and adds `1` to 
+- `supers_available`; same works with burst, except you can't have more than 1 `bursts_available`
+- `combo_count` - counts **moves**, so move that hits 3 times will just add 1
+- `visible_combo_count` - counts **hits**, same number that you see in game UI
+- `is_ghost` - true if in prediction
+- `sprite` - reference to `Sprite` node
+- `opponent` - reference to opponent's fighter
+- `objs_map` - contains every object in game that is not disabled (floor/walls/particles are not objects, so actually just fighters and projectiles); 
+- `current_di` - ...yeah, the blue wheel (`{"x": int, "y": int}`)
+- `current_tick` - counts every frame since character is spawned; however, not recommended to use it; there is a better alternative:
+- `game_tick` - unlike `current_tick`, doesn't keep counting during hitlag
+- `hitlag_ticks` - ...the uhh freeze thing; can use this to freeze stuff manually
+- `turn_frames` - counts every frame since locked in(?); useful if you need something like turn-based cooldown (instead of frame-based)
+- `ceiling height` - ceiling position (except it's positive number, so don't forget to `*-1` when comparing to object position)
+- `stage_width` - walls position (left one is at `-stage_width`, right one is at `stage_width`)
+- `infinite_resources` - true if infinite resources are enabled
 
-`get_facing_int()` - returns facing direction: -1=left, 1=right
-`set_facing(int)` - sets facing direction
-`get_opponent_dir()` - returns opponent direction: -1=opponent on the left, 1=opponent on the right
-`apply_force("x", "y")` - applies force to character
-`apply_force_relative("x", "y")` - same but "x" is multiplied by facing
-`move_directly(x, y)` - changes *position* by adding to current, speed is untouched
-`move_directly_relative(x, y)` - same but "x" is multiplied by facing
-`get_pos()` - returns current position (`{"x": int, "y": int}`)
+- `get_facing_int()` - returns facing direction: -1=left, 1=right
+- `set_facing(int)` - sets facing direction
+- `get_opponent_dir()` - returns opponent direction: -1=opponent on the left, 1=opponent on the right
+- `apply_force("x", "y")` - applies force to character
+- `apply_force_relative("x", "y")` - same but "x" is multiplied by facing
+- `move_directly(x, y)` - changes *position* by adding to current, speed is untouched
+- `move_directly_relative(x, y)` - same but "x" is multiplied by facing
+- `get_pos()` - returns current position (`{"x": int, "y": int}`)
 btw in yomi origin point is at the center of floor, and all objects positions are relative to that
-`get_vel()` - returns current speed (`{"x": fixed, "y": fixed}`)
-`set_pos(x, y)` - set position directly
-`set_vel("x", "y")` - set speed directly
-`set_grounded(bool)` - sets if object is on the ground / in the air; not so useful on fighters, but will be *very* useful when we'll get to projectiles
+- `get_vel()` - returns current speed (`{"x": fixed, "y": fixed}`)
+- `set_pos(x, y)` - set position directly
+- `set_vel("x", "y")` - set speed directly
+- `set_grounded(bool)` - sets if object is on the ground / in the air; not so useful on fighters, but will be *very* useful when we'll get to projectiles
 
-`take_damage(amount:int)` - deal damage (do **not** use `hp -= amount` over this)
+- `take_damage(amount:int)` - deal damage (do **not** use `hp -= amount` over this)
 ```
 start_throw_invulnerability()
 end_throw_invulnerability()
@@ -334,33 +335,34 @@ end_invulnerability()
 ```
 Yeah, I'm not explaining all of those. Read the names.
 
-`gain_burst_meter(amount:int)` - add burst meter
-`use_burst()` - use full bar of burst
-`use_burst_meter(amount:int)` - use some of burst
-`use_super_bar()` - use 1 super level
-`use_super_meter(amount:int)` - use some of super
-`gain_super_meter(amount:int, stale_amount:fixed)` - does some math to reduce gain depending on combo
-`gain_super_meter_raw(amount:int)` - not affected by stale
+- `gain_burst_meter(amount:int)` - add burst meter
+- `use_burst()` - use full bar of burst
+- `use_burst_meter(amount:int)` - use some of burst
+- `use_super_bar()` - use 1 super level
+- `use_super_meter(amount:int)` - use some of super
+- `gain_super_meter(amount:int, stale_amount:fixed)` - does some math to reduce gain depending on combo
+- `gain_super_meter_raw(amount:int)` - not affected by stale
 
-*Important note:* when you need to give function a *scene* as a parameter, you need to use `load("path")` or `preload("path")`; `preload` is preferred.
+*Important note:* when you need to give function a *scene* as a parameter, you need to use 
+- `load("path")` or `preload("path")`; `preload` is preferred.
 to get path, simply right-click on file in godot's FileSystem and `Copy Path`
-`spawn_particle_effect(scene, position:Vector2, direction:Vector2)` - spawns particle at global coordinates
-`spawn_particle_effect_relative(scene, position:Vector2, direction:Vector2)` - spawns particle at object local coordinates
-`spawn_object(scene, position_x:int, position_y:int, relative:bool, data:array, local:bool)` - spawns object:
-- `relative` - multiplies `position_x` by object facing if true
-- `data` - passes things to object's `Default` state after spawn
-- `local` - to spawn in local object coordinates (true) or in global coordinates (false)
+- `spawn_particle_effect(scene, position:Vector2, direction:Vector2)` - spawns particle at global coordinates
+- `spawn_particle_effect_relative(scene, position:Vector2, direction:Vector2)` - spawns particle at object local coordinates
+- `spawn_object(scene, position_x:int, position_y:int, relative:bool, data:array, local:bool)` - spawns object:
+	- `relative` - multiplies `position_x` by object facing if true
+	- `data` - passes things to object's `Default` state after spawn
+	- `local` - to spawn in local object coordinates (true) or in global coordinates (false)
 However, last 3 are set to `true, [], true` by default, so you can get away with just:
 `spawn_object(scene, position_x:int, position_y:int)`
 
-`grab_camera_focus()` - does what it says (NOTE: release is not called automatically, so don't forget to release it yourself)
-`release_camera_focus()` - does what it says
-`screen_bump(direction:Vector2, strength:float, duration:float)` - makes screen shake with set parameters
-`global_hitlag(amount:int, force:bool)` - freeze every object
-`current_state()` - get reference of current state object is in
-`change_state("name", data:array)` - changes current state of object, `data` is optional
-`create_speed_after_image(color:Color, lifetime:float)` - spawns afterimage with selected color and duration (in seconds)
-`create_speed_after_image_from_style(which:int)` - spawns afterimage using color from `style_extra_color_1` if `which` = `1`, else `style_extra_color_2`
+- `grab_camera_focus()` - does what it says (NOTE: release is not called automatically, so don't forget to release it yourself)
+- `release_camera_focus()` - does what it says
+- `screen_bump(direction:Vector2, strength:float, duration:float)` - makes screen shake with set parameters
+- `global_hitlag(amount:int, force:bool)` - freeze every object
+- `current_state()` - get reference of current state object is in
+- `change_state("name", data:array)` - changes current state of object, `data` is optional
+- `create_speed_after_image(color:Color, lifetime:float)` - spawns afterimage with selected color and duration (in seconds)
+- `create_speed_after_image_from_style(which:int)` - spawns afterimage using color from `style_extra_color_1` if `which` = `1`, else `style_extra_color_2`
 
 ```swift
 func init(pos=null):
@@ -412,10 +414,12 @@ func _on_hit_something(obj, hitbox):
 ```
 NOTE: there's `_enter()` function, but it **will** be called when you're still doing that move and launch prediction, so it's recommended to use `_frame_0()` instead.
 
-`current_tick` - reminder that it starts counting **from 0**
+- `current_tick` - reminder that it starts counting **from 0**
 fun fact: you can actually manipulate this variable, and sometimes it's pretty useful
-`hit_fighter` - very useful variable in case you need to check if your move hit opponent
-`anim_name` - you can
+- `hit_fighter` - very useful variable in case you need to check if your move hit opponent
+- `anim_name` - you *can* change it mid-state, but usually it's changed on `_frame_0` (or not changed at all)
+- `anim_length` - technically changeable, but shouldn't need to
+- `iasa_at`/`iasa_on_hit` - those are a bit more popular in terms of modifying through code
 
 ```swift
 func is_usable():
