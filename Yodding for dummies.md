@@ -515,3 +515,6 @@ Now let me explain it real quick:
 `host.proj_ref = proj.obj_name` if you for any reason need to access this projectile later, save it's `obj_name` in fighter. Then somewhere else you can do `obj_from_name(proj_ref)`  to get projectile.
 NOTE: `obj_from_name()` is `BaseObj` function, available only in projectiles/fighters
 NOTE2: to check if it's still alive, simply try `obj_from_name(proj_ref)` - it returns either projectile or null if it doesn't exist anymore
+
+# Chapter 4. Useful stuff // Projectiles
+...
