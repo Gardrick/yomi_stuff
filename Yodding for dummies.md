@@ -120,6 +120,7 @@ var x = add(1) # will write 1 to x because a(1)+b(0)=1
 - `and` - both must be true
 - `or` - at least one must be true
 - `not` - inversion (false->true, true->false), can be replaced with `!`
+
 `false`, `null`, `0`, `0.0`, `""` (empty string), `[]` (empty array) -> **false**.
 Everything else -> **true**.
 
@@ -217,6 +218,7 @@ while timer > 0:
 ```
 
 `continue`/`break` - loop controls
+
 `break` – exits the loop immediately (skips the rest of the current iteration and stops).
 `continue` – skips the rest of the _current_ iteration and jumps to the next one.
 ```swift
@@ -260,6 +262,7 @@ And last note: most yomi functions have a check for variables you give them - th
 
 # Chapter ? Few editor tips
 Wanted to point out some things before going into actual code.
+
 `ctrl+s` - saves everything. Press this **regularly!** (as bonus fixes tabs, as I mentioned earlier)
 By pressing script icon next to node in Scene tab you open that node's script.
 To add new nodes, you need to right-click existing node and select `Add child node`. This existing node will usually be `StateMachine` when adding states (moves) or state when adding hitboxes. 
@@ -267,12 +270,14 @@ To add new nodes, you need to right-click existing node and select `Add child no
 - To add hitbox to state, right-click your state, add child node, add `Hitbox`
 **When extending/replacing scripts, don't forget to copy (and paste after) node properties, buttons are in top right cornet of inspector window.**
 You can also turn off template (option when in extending menu, set it to `Empty`) because it doesn't give you anything useful and you'll have to remove it anyways.
+
 When you see something like:
 ```swift
 func function(something):
 	.function(something)
 ```
 , that's called a *supercall*. It's needed to let function from extended script to do what *it* wants to. For example, there's a whole bunch of code in BaseChar.gd `tick` function, and if we extend it and want to add something to `tick`, we have to supercall it, otherwise BaseChar.gd won't be able to run it's `tick`.
+
 Also you should keep in mind that godot's coordinates are a bit different, and by that I mean:
 - origin point is at the top-left corner
 - `y` axis is flipped (negative is up, positive is down)
